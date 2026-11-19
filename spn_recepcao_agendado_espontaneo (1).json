@@ -1,0 +1,782 @@
+{
+  "modelName": "spn_recepcao_agendado_espontaneo",
+  "places": [
+    {
+      "name": "Vagas",
+      "initialMarking": 20,
+      "stringMarking": "K",
+      "initialStringMarking": "K",
+      "id": "p1",
+      "x": 200,
+      "y": 400
+    },
+    {
+      "name": "Fila_A",
+      "initialMarking": 0,
+      "stringMarking": "0",
+      "initialStringMarking": "0",
+      "id": "p2",
+      "x": 620,
+      "y": 200
+    },
+    {
+      "name": "Fila_E",
+      "initialMarking": 0,
+      "stringMarking": "0",
+      "initialStringMarking": "0",
+      "id": "p3",
+      "x": 620,
+      "y": 600
+    },
+    {
+      "name": "Atendentes",
+      "initialMarking": 6,
+      "stringMarking": "N",
+      "initialStringMarking": "N",
+      "id": "p4",
+      "x": 924.3807358486063,
+      "y": 400
+    },
+    {
+      "name": "EmAtend_A",
+      "initialMarking": 0,
+      "stringMarking": "0",
+      "initialStringMarking": "0",
+      "id": "p5",
+      "x": 1080,
+      "y": 200
+    },
+    {
+      "name": "Dec_E",
+      "initialMarking": 0,
+      "stringMarking": "0",
+      "initialStringMarking": "0",
+      "id": "p6",
+      "x": 1080,
+      "y": 600
+    },
+    {
+      "name": "Cad_E",
+      "initialMarking": 0,
+      "stringMarking": "0",
+      "initialStringMarking": "0",
+      "id": "p7",
+      "x": 1380,
+      "y": 520
+    },
+    {
+      "name": "EmAtend_E",
+      "initialMarking": 0,
+      "stringMarking": "0",
+      "initialStringMarking": "0",
+      "id": "p8",
+      "x": 1680,
+      "y": 600
+    }
+  ],
+  "definitions": [
+    {
+      "name": "N",
+      "type": "INTEGER",
+      "value": "6",
+      "id": "def0"
+    },
+    {
+      "name": "K",
+      "type": "INTEGER",
+      "value": "20",
+      "id": "def1"
+    },
+    {
+      "name": "FATOR_DEMANDA",
+      "type": "DOUBLE",
+      "value": "1",
+      "id": "def2"
+    },
+    {
+      "name": "INTERVALO_REF",
+      "type": "DOUBLE",
+      "value": "80.78",
+      "id": "def3"
+    },
+    {
+      "name": "P_AGENDADO",
+      "type": "DOUBLE",
+      "value": "0.4",
+      "id": "def4"
+    },
+    {
+      "name": "P_NOVO",
+      "type": "DOUBLE",
+      "value": "0.1",
+      "id": "def5"
+    },
+    {
+      "name": "D_AGENDADO",
+      "type": "DOUBLE",
+      "value": "180",
+      "id": "def6"
+    },
+    {
+      "name": "D_CADASTRO",
+      "type": "DOUBLE",
+      "value": "240",
+      "id": "def7"
+    },
+    {
+      "name": "TEMPO_MEDIO_GERAL",
+      "type": "DOUBLE",
+      "value": "320.45",
+      "id": "def8"
+    },
+    {
+      "name": "ATRASO_CHEGADA_TOTAL",
+      "type": "DOUBLE",
+      "value": "80.78",
+      "id": "def9"
+    },
+    {
+      "name": "ATRASO_CHEGADA_A",
+      "type": "DOUBLE",
+      "value": "201.95",
+      "id": "def10"
+    },
+    {
+      "name": "ATRASO_CHEGADA_E",
+      "type": "DOUBLE",
+      "value": "134.63",
+      "id": "def11"
+    },
+    {
+      "name": "D_ESPONTANEO",
+      "type": "DOUBLE",
+      "value": "390.08",
+      "id": "def12"
+    }
+  ],
+  "rewardMeasures": [
+    {
+      "name": "U",
+      "expression": "((N - E{#Atendentes}) / N) * 100",
+      "id": "rm0"
+    },
+    {
+      "name": "DP",
+      "expression": "P{#Vagas = 0} * 100",
+      "id": "rm1"
+    },
+    {
+      "name": "TP",
+      "expression": "E{#EmAtend_A} / D_AGENDADO + E{#EmAtend_E} / D_ESPONTANEO",
+      "id": "rm2"
+    },
+    {
+      "name": "TP_ESPERADA",
+      "expression": "(1 / ATRASO_CHEGADA_TOTAL) * (1 - P{#Vagas = 0})",
+      "id": "rm3"
+    },
+    {
+      "name": "MQT_A",
+      "expression": "IF E{#EmAtend_A} > 0 THEN E{#Fila_A} * D_AGENDADO / E{#EmAtend_A} ELSE 0",
+      "id": "rm4"
+    },
+    {
+      "name": "MQT_E",
+      "expression": "IF E{#EmAtend_E} > 0 THEN E{#Fila_E} * D_ESPONTANEO / E{#EmAtend_E} ELSE 0",
+      "id": "rm5"
+    },
+    {
+      "name": "MQT",
+      "expression": "IF E{#EmAtend_A} + E{#EmAtend_E} > 0 THEN (E{#Fila_A} + E{#Fila_E}) / (E{#EmAtend_A} / D_AGENDADO + E{#EmAtend_E} / D_ESPONTANEO) ELSE 0",
+      "id": "rm6"
+    },
+    {
+      "name": "MRT_A",
+      "expression": "IF E{#EmAtend_A} > 0 THEN (E{#Fila_A} + E{#EmAtend_A}) * D_AGENDADO / E{#EmAtend_A} ELSE 0",
+      "id": "rm7"
+    },
+    {
+      "name": "MRT_E",
+      "expression": "IF E{#EmAtend_E} > 0 THEN (E{#Fila_E} + E{#Cad_E} + E{#EmAtend_E}) * D_ESPONTANEO / E{#EmAtend_E} ELSE 0",
+      "id": "rm8"
+    }
+  ],
+  "transitions": [
+    {
+      "name": "Chegada_A",
+      "type": "TIMED",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Vagas",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Fila_A",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "distribution": {
+        "type": "exponential",
+        "parameters": {
+          "Mean delay": "ATRASO_CHEGADA_A"
+        }
+      },
+      "id": "t1",
+      "x": 400,
+      "y": 200
+    },
+    {
+      "name": "Chegada_E",
+      "type": "TIMED",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Vagas",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Fila_E",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "distribution": {
+        "type": "exponential",
+        "parameters": {
+          "Mean delay": "ATRASO_CHEGADA_E"
+        }
+      },
+      "id": "t2",
+      "x": 400,
+      "y": 600
+    },
+    {
+      "name": "Inicio_A",
+      "type": "IMMEDIATE",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Fila_A",
+          "multiplicity": 1,
+          "weight": 1
+        },
+        {
+          "type": "INPUT",
+          "place": "Atendentes",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "EmAtend_A",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "weight": 1,
+      "id": "t3",
+      "x": 850,
+      "y": 200
+    },
+    {
+      "name": "Inicio_E",
+      "type": "IMMEDIATE",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Fila_E",
+          "multiplicity": 1,
+          "weight": 1
+        },
+        {
+          "type": "INPUT",
+          "place": "Atendentes",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Dec_E",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [
+        {
+          "type": "INHIBITOR",
+          "place": "Fila_A",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "weight": 1,
+      "id": "t4",
+      "x": 850,
+      "y": 600
+    },
+    {
+      "name": "Novo",
+      "type": "IMMEDIATE",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Dec_E",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Cad_E",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "weight": 0.1,
+      "id": "t5",
+      "x": 1230,
+      "y": 520
+    },
+    {
+      "name": "Cadastrado",
+      "type": "IMMEDIATE",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Dec_E",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "EmAtend_E",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "weight": 0.9,
+      "id": "t6",
+      "x": 1380,
+      "y": 700
+    },
+    {
+      "name": "T_Cad",
+      "type": "TIMED",
+      "firingPolicy": "INFINITY_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Cad_E",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "EmAtend_E",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "distribution": {
+        "type": "exponential",
+        "parameters": {
+          "Mean delay": "D_CADASTRO"
+        }
+      },
+      "id": "t7",
+      "x": 1530,
+      "y": 520
+    },
+    {
+      "name": "Fim_A",
+      "type": "TIMED",
+      "firingPolicy": "INFINITY_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "EmAtend_A",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Atendentes",
+          "multiplicity": 1,
+          "weight": 1
+        },
+        {
+          "type": "OUTPUT",
+          "place": "Vagas",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "distribution": {
+        "type": "exponential",
+        "parameters": {
+          "Mean delay": "D_AGENDADO"
+        }
+      },
+      "id": "t8",
+      "x": 1300,
+      "y": 200
+    },
+    {
+      "name": "Fim_E",
+      "type": "TIMED",
+      "firingPolicy": "INFINITY_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "EmAtend_E",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Atendentes",
+          "multiplicity": 1,
+          "weight": 1
+        },
+        {
+          "type": "OUTPUT",
+          "place": "Vagas",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "distribution": {
+        "type": "exponential",
+        "parameters": {
+          "Mean delay": "D_ESPONTANEO"
+        }
+      },
+      "id": "t9",
+      "x": 1830,
+      "y": 600
+    }
+  ],
+  "visualElements": [],
+  "arcs": [
+    {
+      "id": "a1",
+      "source": "p1",
+      "target": "t1",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a2",
+      "source": "t1",
+      "target": "p2",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a3",
+      "source": "p1",
+      "target": "t2",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a4",
+      "source": "t2",
+      "target": "p3",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a5",
+      "source": "p2",
+      "target": "t3",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a6",
+      "source": "p4",
+      "target": "t3",
+      "type": "normal",
+      "weight": "1",
+      "targetAnchorAngle": 180,
+      "lineType": "straight",
+      "sourceAnchorAngle": 201.33257325090221
+    },
+    {
+      "id": "a7",
+      "source": "t3",
+      "target": "p5",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a8",
+      "source": "p3",
+      "target": "t4",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a9",
+      "source": "p4",
+      "target": "t4",
+      "type": "normal",
+      "weight": "1",
+      "targetAnchorAngle": 180,
+      "lineType": "straight",
+      "sourceAnchorAngle": 105.20892265338824
+    },
+    {
+      "id": "a10",
+      "source": "t4",
+      "target": "p6",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a11",
+      "source": "p2",
+      "target": "t4",
+      "type": "inhibitor",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a12",
+      "source": "p6",
+      "target": "t5",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a13",
+      "source": "t5",
+      "target": "p7",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a14",
+      "source": "p6",
+      "target": "t6",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a15",
+      "source": "t6",
+      "target": "p8",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a16",
+      "source": "p7",
+      "target": "t7",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a17",
+      "source": "t7",
+      "target": "p8",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a18",
+      "source": "p5",
+      "target": "t8",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a19",
+      "source": "t8",
+      "target": "p4",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a20",
+      "source": "t8",
+      "target": "p1",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "right-angle",
+      "waypoints": [
+        {
+          "x": 1354,
+          "y": 200
+        },
+        {
+          "x": 1354,
+          "y": 112.32669724934051
+        },
+        {
+          "x": 154,
+          "y": 112.32669724934051
+        }
+      ]
+    },
+    {
+      "id": "a21",
+      "source": "p8",
+      "target": "t9",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a22",
+      "source": "t9",
+      "target": "p4",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 12.959242746944767,
+      "lineType": "right-angle",
+      "waypoints": [
+        {
+          "x": 1884,
+          "y": 600
+        },
+        {
+          "x": 1884,
+          "y": 400
+        }
+      ]
+    },
+    {
+      "id": "a23",
+      "source": "t9",
+      "target": "p1",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "right-angle",
+      "waypoints": [
+        {
+          "x": 1862,
+          "y": 773.3539586069656
+        },
+        {
+          "x": 154,
+          "y": 773.3539586069656
+        }
+      ]
+    }
+  ],
+  "chartSquare": false
+}

@@ -1,0 +1,18 @@
+# Arquivos locais / auxiliares fora do escopo do repositorio
+trabalhos-referencias/
+TRABALHO 07 - SPN.docx.pdf
+CHECKLIST_TRABALHO_SD_07.md
+artigo-overleaf/
+artigo-overleaf.zip
+graficos/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/

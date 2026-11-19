@@ -1,0 +1,65 @@
+========================================
+  STOCHASTIC ANALYSIS REPORT
+========================================
+
+Execution type:  Stationary Simulation
+Execution time:  9.282s
+Repetitions:  250
+Processed events:  22643978
+
+--- MODEL DATA ---
+Places:  8
+Transitions:  9
+Parameters:  13
+Metrics:  9
+
+--- METRICS ---
+DP = 0.018485
+  Min: 0.0000  Max: 0.0893
+  Std.Dev: 0.0167  Samples: 250
+  95% CI: [0.0164, 0.0206]
+  Half-Width: 0.0021
+MQT = 41.349823
+  Min: 31.7826  Max: 51.6617
+  Std.Dev: 3.2005  Samples: 250
+  95% CI: [40.9531, 41.7466]
+  Half-Width: 0.3967
+MQT_A = 19.672160
+  Min: 16.4949  Max: 22.8169
+  Std.Dev: 1.1420  Samples: 250
+  95% CI: [19.5306, 19.8137]
+  Half-Width: 0.1416
+MQT_E = 55.814994
+  Min: 42.1604  Max: 71.0952
+  Std.Dev: 4.7812  Samples: 250
+  95% CI: [55.2223, 56.4077]
+  Half-Width: 0.5927
+MRT_A = 199.672160
+  Min: 196.4949  Max: 202.8169
+  Std.Dev: 1.1420  Samples: 250
+  95% CI: [199.5306, 199.8137]
+  Half-Width: 0.1416
+MRT_E = 469.921370
+  Min: 455.4145  Max: 486.5066
+  Std.Dev: 5.0134  Samples: 250
+  95% CI: [469.2999, 470.5428]
+  Half-Width: 0.6215
+TP = 0.012375
+  Min: 0.0119  Max: 0.0127
+  Std.Dev: 0.0001  Samples: 250
+  95% CI: [0.0124, 0.0124]
+  Half-Width: 0.0000
+TP_ESPERADA = 0.012377
+  Min: 0.0124  Max: 0.0124
+  Std.Dev: 0.0000  Samples: 250
+  95% CI: [0.0124, 0.0124]
+  Half-Width: 0.0000
+U = 66.084917
+  Min: 63.8143  Max: 68.0540
+  Std.Dev: 0.6731  Samples: 250
+  95% CI: [66.0015, 66.1684]
+  Half-Width: 0.0834
+
+========================================
+  END OF REPORT
+========================================
